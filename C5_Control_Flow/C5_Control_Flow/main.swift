@@ -159,19 +159,126 @@ let freezeWarning: String? = if temperatureInCelsius <= 0 {
 } else {
     nil
 }
-print(freezeWarning!)
+// print(freezeWarning)
 //
 let freezeWarning2 = if temperatureInCelsius <= 0 {
     "It's below freezing. Watch for ice!"
 } else {
     nil as String?
 }
-print(freezeWarning2!)
+// print(freezeWarning2)
 //
-let weatherAdvice3 = if temperatureInCelsius > 100 {
-    throw fatalError()
-    // throw TemperatureError.boiling
-} else {
-    "It's a reasonable temperature."
+//let weatherAdvice3 = if temperatureInCelsius > 100 {
+//    throw fatalError()
+//    // throw TemperatureError.boiling
+//} else {
+//    "It's a reasonable temperature."
+//}
+//print(weatherAdvice3)
+
+
+/** Switch */
+var someCharacter: Character = "z"
+switch someCharacter {
+case "a":
+    print("The first letter of the Latin alphabet")
+case "z":
+    print("The last letter of the Latin alphabet")
+default:
+    print("Some other character")
 }
-print(weatherAdvice3)
+//
+let anotherCharacter: Character = "a"
+let message = switch anotherCharacter {
+case "a":
+    "The first letter of the Latin alphabet"
+case "z":
+    "The last letter of the Latin alphabet"
+default:
+    "Some other character"
+}
+print(message)
+//
+let anotherCharacter2: Character = "a"
+switch anotherCharacter2 {
+case "a", "A":
+    print("The letter A")
+default:
+    print("Not the letter A")
+}
+// Interval Matching
+let approximateCount = 62
+let countedThings = "moons orbiting Saturn"
+let naturalCount: String
+switch approximateCount {
+case 0:
+    naturalCount = "no"
+case 1..<5:
+    naturalCount = "a few"
+case 5..<12:
+    naturalCount = "several"
+case 12..<100:
+    naturalCount = "dozens of"
+case 100..<1000:
+    naturalCount = "hundreds of"
+default:
+    naturalCount = "many"
+}
+print("There are \(naturalCount) \(countedThings).")
+// Tuples
+let somePoint = (1, 1)
+switch somePoint {
+case (0, 0):
+    print("\(somePoint) is at the origin")
+case (_, 0):
+    print("\(somePoint) is on the x-axis")
+case (0, _):
+    print("\(somePoint) is on the y-axis")
+case (-2...2, -2...2):
+    print("\(somePoint) is inside the box")
+default:
+    print("\(somePoint) is outside of the box")
+}
+print("")
+// Value Bindings
+let anotherPoint = (2, 0)
+switch anotherPoint {
+case (let x, 0):
+    print("on the x-axis with an x value of \(x)")
+case (0, let y):
+    print("on the y-axis with a y value of \(y)")
+case let (x, y):
+    print("somewhere else at (\(x), \(y))")
+}
+print("")
+// Where
+let yetAnotherPoint = (1, -1)
+switch yetAnotherPoint {
+case let (x, y) where x == y:
+    print("(\(x), \(y)) is on the line x == y")
+case let (x, y) where x == -y:
+    print("(\(x), \(y)) is on the line x == -y")
+case let (x, y):
+    print("(\(x), \(y)) is just some arbitrary point")
+}
+print("")
+// Compound Cases
+someCharacter = "e"
+switch someCharacter {
+case "a", "e", "i", "o", "u":
+    print("\(someCharacter) is a vowel")
+case "b", "c", "d", "f", "g", "h", "j", "k", "l", "m",
+    "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z":
+    print("\(someCharacter) is a consonant")
+default:
+    print("\(someCharacter) isn't a vowel or a consonant")
+}
+print("")
+//
+let stillAnotherPoint = (9, 0)
+switch stillAnotherPoint {
+case (let distance, 0), (0, let distance):
+    print("On an axis, \(distance) from the origin")
+default:
+    print("Not on an axis")
+}
