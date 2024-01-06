@@ -86,7 +86,7 @@ print("Game over!\n")
 
 /** Repeat-While (do-while) */
 /* Here’s the Snakes and Ladders example again,
-   written as a repeat-while loop rather than a while loop.
+ written as a repeat-while loop rather than a while loop.
  */
 square = 0  // reset to 0
 diceRoll = 0  // reset to 0
@@ -180,12 +180,12 @@ let freezeWarning2 = if temperatureInCelsius <= 0 {
 /** Switch */
 var someCharacter: Character = "z"
 switch someCharacter {
-case "a":
-    print("The first letter of the Latin alphabet")
-case "z":
-    print("The last letter of the Latin alphabet")
-default:
-    print("Some other character")
+    case "a":
+        print("The first letter of the Latin alphabet")
+    case "z":
+        print("The last letter of the Latin alphabet")
+    default:
+        print("Some other character")
 }
 //
 let anotherCharacter: Character = "a"
@@ -201,84 +201,199 @@ print(message)
 //
 let anotherCharacter2: Character = "a"
 switch anotherCharacter2 {
-case "a", "A":
-    print("The letter A")
-default:
-    print("Not the letter A")
+    case "a", "A":
+        print("The letter A")
+    default:
+        print("Not the letter A")
 }
 // Interval Matching
 let approximateCount = 62
 let countedThings = "moons orbiting Saturn"
 let naturalCount: String
 switch approximateCount {
-case 0:
-    naturalCount = "no"
-case 1..<5:
-    naturalCount = "a few"
-case 5..<12:
-    naturalCount = "several"
-case 12..<100:
-    naturalCount = "dozens of"
-case 100..<1000:
-    naturalCount = "hundreds of"
-default:
-    naturalCount = "many"
+    case 0:
+        naturalCount = "no"
+    case 1..<5:
+        naturalCount = "a few"
+    case 5..<12:
+        naturalCount = "several"
+    case 12..<100:
+        naturalCount = "dozens of"
+    case 100..<1000:
+        naturalCount = "hundreds of"
+    default:
+        naturalCount = "many"
 }
 print("There are \(naturalCount) \(countedThings).")
 // Tuples
 let somePoint = (1, 1)
 switch somePoint {
-case (0, 0):
-    print("\(somePoint) is at the origin")
-case (_, 0):
-    print("\(somePoint) is on the x-axis")
-case (0, _):
-    print("\(somePoint) is on the y-axis")
-case (-2...2, -2...2):
-    print("\(somePoint) is inside the box")
-default:
-    print("\(somePoint) is outside of the box")
+    case (0, 0):
+        print("\(somePoint) is at the origin")
+    case (_, 0):
+        print("\(somePoint) is on the x-axis")
+    case (0, _):
+        print("\(somePoint) is on the y-axis")
+    case (-2...2, -2...2):
+        print("\(somePoint) is inside the box")
+    default:
+        print("\(somePoint) is outside of the box")
 }
 print("")
 // Value Bindings
 let anotherPoint = (2, 0)
 switch anotherPoint {
-case (let x, 0):
-    print("on the x-axis with an x value of \(x)")
-case (0, let y):
-    print("on the y-axis with a y value of \(y)")
-case let (x, y):
-    print("somewhere else at (\(x), \(y))")
+    case (let x, 0):
+        print("on the x-axis with an x value of \(x)")
+    case (0, let y):
+        print("on the y-axis with a y value of \(y)")
+    case let (x, y):
+        print("somewhere else at (\(x), \(y))")
 }
 print("")
 // Where
 let yetAnotherPoint = (1, -1)
 switch yetAnotherPoint {
-case let (x, y) where x == y:
-    print("(\(x), \(y)) is on the line x == y")
-case let (x, y) where x == -y:
-    print("(\(x), \(y)) is on the line x == -y")
-case let (x, y):
-    print("(\(x), \(y)) is just some arbitrary point")
+    case let (x, y) where x == y:
+        print("(\(x), \(y)) is on the line x == y")
+    case let (x, y) where x == -y:
+        print("(\(x), \(y)) is on the line x == -y")
+    case let (x, y):
+        print("(\(x), \(y)) is just some arbitrary point")
 }
 print("")
 // Compound Cases
 someCharacter = "e"
 switch someCharacter {
-case "a", "e", "i", "o", "u":
-    print("\(someCharacter) is a vowel")
-case "b", "c", "d", "f", "g", "h", "j", "k", "l", "m",
-    "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z":
-    print("\(someCharacter) is a consonant")
-default:
-    print("\(someCharacter) isn't a vowel or a consonant")
+    case "a", "e", "i", "o", "u":
+        print("\(someCharacter) is a vowel")
+    case "b", "c", "d", "f", "g", "h", "j", "k", "l", "m",
+        "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z":
+        print("\(someCharacter) is a consonant")
+    default:
+        print("\(someCharacter) isn't a vowel or a consonant")
 }
 print("")
 //
 let stillAnotherPoint = (9, 0)
 switch stillAnotherPoint {
-case (let distance, 0), (0, let distance):
-    print("On an axis, \(distance) from the origin")
-default:
-    print("Not on an axis")
+    case (let distance, 0), (0, let distance):
+        print("On an axis, \(distance) from the origin")
+    default:
+        print("Not on an axis")
+}
+print("")
+
+
+/** Control Transfer Statements */
+// Continue
+let puzzleInput = "great minds think alike"
+var puzzleOutput = ""
+let charactersToRemove: [Character] = ["a", "e", "i", "o", "u", " "]
+for character in puzzleInput {
+    if charactersToRemove.contains(character) {
+        continue
+    }
+    puzzleOutput.append(character)
+}
+print(puzzleOutput)
+// Break
+let numberSymbol: Character = "三"
+var possibleIntegerValue: Int?
+switch numberSymbol {
+    case "1", "١", "一", "๑":
+        possibleIntegerValue = 1
+    case "2", "٢", "二", "๒":
+        possibleIntegerValue = 2
+    case "3", "٣", "三", "๓":
+        possibleIntegerValue = 3
+    case "4", "٤", "四", "๔":
+        possibleIntegerValue = 4
+    default:
+        break
+}
+if let integerValue = possibleIntegerValue {
+    print("The integer value of \(numberSymbol) is \(integerValue).")
+} else {
+    print("An integer value couldn't be found for \(numberSymbol).")
+}
+// Fallthrough
+let integerToDescribe = 5
+var description = "The number \(integerToDescribe) is"
+switch integerToDescribe {
+    case 2, 3, 5, 7, 11, 13, 17, 19:
+        description += " a prime number, and also"
+        fallthrough
+    default:
+        description += " an integer."
+}
+print(description, terminator: "\n\n")
+// Labeled Statements
+/* This  example uses the break and continue statements with a labeled while loop for an adapted version of the Snakes and Ladders game.
+   This time around, the game has an extra rule:
+   To win, you must land exactly on square 25.
+ */
+square = 0
+diceRoll = 0
+gameLoop: while square != finalSquare {
+    diceRoll += 1
+    if diceRoll == 7 { diceRoll = 1 }
+    switch square + diceRoll {
+        case finalSquare:
+            // diceRoll will move us to the final square, so the game is over
+            break gameLoop
+        case let newSquare where newSquare > finalSquare:
+            // diceRoll will move us beyond the final square, so roll again
+            continue gameLoop
+        default:
+            // this is a valid move, so find out its effect
+            square += diceRoll
+            square += board[square]
+    }
+}
+print("Game over!\n")
+// Early Exit
+func greet(person: [String: String]) {
+    guard let name = person["name"] else {
+        return
+    }
+    print("Hello \(name)!")
+    guard let location = person["location"] else {
+        print("I hope the weather is nice near you.")
+        return
+    }
+    print("I hope the weather is nice in \(location).")
+}
+greet(person: ["name": "John"])
+greet(person: ["name": "Jane", "location": "Cupertino"])
+print("")
+// Deferred Actions
+var score = 1
+if score < 10 {
+    defer {
+        print(score)
+    }
+    score += 5
+}
+//
+score = 3
+if score < 100 {
+    score += 100
+    defer {
+        score -= 100
+    }
+    // Other code that uses the score with its bonus goes here.
+    print(score)
+}
+/* If you write more than one defer block in the same scope,
+   the first one you specify is the last one to run
+ */
+if score < 10 {
+    defer {
+        print(score)
+    }
+    defer {
+        print("The score is:")
+    }
+    score += 5
 }
