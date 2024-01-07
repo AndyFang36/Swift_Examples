@@ -330,8 +330,8 @@ switch integerToDescribe {
 print(description, terminator: "\n\n")
 // Labeled Statements
 /* This  example uses the break and continue statements with a labeled while loop for an adapted version of the Snakes and Ladders game.
-   This time around, the game has an extra rule:
-   To win, you must land exactly on square 25.
+ This time around, the game has an extra rule:
+ To win, you must land exactly on square 25.
  */
 square = 0
 diceRoll = 0
@@ -386,7 +386,7 @@ if score < 100 {
     print(score)
 }
 /* If you write more than one defer block in the same scope,
-   the first one you specify is the last one to run
+ the first one you specify is the last one to run
  */
 if score < 10 {
     defer {
@@ -396,4 +396,32 @@ if score < 10 {
         print("The score is:")
     }
     score += 5
+}
+
+// Checking API Availability
+if #available(iOS 10, macOS 10.12, *) {
+    // Use iOS 10 APIs on iOS, and use macOS 10.12 APIs on macOS
+} else {
+    // Fall back to earlier iOS and macOS APIs
+}
+//
+@available(macOS 10.12, *)
+struct ColorPreference {
+    var bestColor = "blue"
+}
+func chooseBestColor() -> String {
+    guard #available(macOS 10.12, *) else {
+        return "gray"
+    }
+    let colors = ColorPreference()
+    return colors.bestColor
+}
+print(chooseBestColor())
+//
+if #available(iOS 10, *) {
+} else {
+    // Fallback code
+}
+if #unavailable(iOS 10) {
+    // Fallback code
 }
