@@ -398,7 +398,7 @@ if score < 10 {
     score += 5
 }
 
-// Checking API Availability
+/** Checking API Availability */
 if #available(iOS 10, macOS 10.12, *) {
     // Use iOS 10 APIs on iOS, and use macOS 10.12 APIs on macOS
 } else {
