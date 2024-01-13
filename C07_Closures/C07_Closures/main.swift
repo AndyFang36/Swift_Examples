@@ -55,3 +55,114 @@ let strings = numbers.map { number -> String in
     } while n > 0
     return output
 }
+//
+
+//func loadPicture(from server: String,
+//                 completion: (Picture) -> Void,
+//                 onFailure: () -> Void) {
+//    if let picture = download("photo.jpg", from: server) {
+//        completion(picture)
+//    } else {
+//        onFailure()
+//    }
+//}
+//loadPicture(from: someServer) { picture in
+//    someView.currentPicture = picture
+//} onFailure: {
+//    print("Couldn't download the next picture.")
+//}
+
+// Capturing Values
+func makeIncrementer(forIncrement amount: Int) -> (() -> Int) {
+    var runningTotal = 0
+    func incrementer() -> Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementer
+}
+let incrementByTen = makeIncrementer(forIncrement: 10)
+print(incrementByTen())
+print(incrementByTen())
+print(incrementByTen())
+let incrementBySeven = makeIncrementer(forIncrement: 7)
+print(incrementBySeven())
+print(incrementBySeven())
+print(incrementBySeven())
+print(incrementByTen())
+let alseIncrementByTen = incrementByTen
+print(alseIncrementByTen())
+print(incrementByTen())
+
+// Escaping Closures
+var completionHandlers: [() -> Void] = []
+func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
+    completionHandlers.append(completionHandler)
+}
+
+func someFunctionWithNonescapingClosure(closure: () -> Void) {
+    closure()
+}
+class SomeClass {
+    var x = 10
+    func doSomething() {
+        someFunctionWithEscapingClosure { self.x = 100 }
+        someFunctionWithNonescapingClosure { x = 200 }
+    }
+}
+let instance = SomeClass()
+instance.doSomething()
+print(instance.x)
+completionHandlers.first?()
+print(instance.x)
+//
+class SomeOtherClass {
+    var x = 10
+    func doSomething() {
+        someFunctionWithEscapingClosure { [self] in x = 100 }
+        someFunctionWithNonescapingClosure { x = 200 }
+    }
+}
+let instance2 = SomeOtherClass()
+instance2.doSomething()
+print(instance2.x)
+completionHandlers[1]()
+print(instance2.x)
+//
+struct SomeStruct {
+    var x = 10
+    mutating func doSomething() {
+        someFunctionWithNonescapingClosure { x = 200 }  // Ok
+        // someFunctionWithEscapingClosure { x = 100 }     // Error
+    }
+}
+
+// Autoclosures
+var customersInLine = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+print(customersInLine.count)
+let customerProvider = { customersInLine.remove(at: 0) }
+print(customersInLine.count)
+print("Now serving \(customerProvider())!")
+print(customersInLine.count)
+//
+func serve(customer customerProvider: () -> String) {
+    print("Now serving \(customerProvider())!")
+}
+serve(customer: { customersInLine.remove(at: 0) })
+// Overusing autoclosures can make your code hard to understand.
+// The context and function name should make it clear that evaluation is being deferred.
+func serve(customer customerProvider: @autoclosure () -> String) {
+    print("Now serving \(customerProvider())!")
+}
+serve(customer: customersInLine.remove(at: 0))
+//
+var customerProviders: [() -> String] = []
+func collectCustomerProviders(_ customerProvider: @autoclosure @escaping () -> String) {
+    customerProviders.append(customerProvider)
+}
+collectCustomerProviders(customersInLine.remove(at: 0))
+collectCustomerProviders(customersInLine.remove(at: 0))
+print("Collected \(customerProviders.count) closures.")
+for customerProvider in customerProviders {
+    print("Now serving \(customerProvider())!")
+}
