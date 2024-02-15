@@ -1,12 +1,11 @@
-//
 //  main.swift
 //  C14_Initialization
-//
 //  Created by Andy Fang on 21/01/2024.
-//
 
 import Foundation
 
+/** Setting Initial Values for Stored Properties */
+// * Initializers
 struct Fahrenheit {
     var temperature: Double
     
@@ -18,10 +17,11 @@ struct Fahrenheit {
 var f = Fahrenheit()
 print("The default temperature is \(f.temperature)° Fahrenheit")
 
-// Default Property Values
+// * Default Property Values
 struct Fahrenheit2 {
     var temperature = 32.0
 }
+print("")
 
 
 /** Customizing Initialization */
